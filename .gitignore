@@ -115,3 +115,4 @@ dmypy.json
 
 
 .vscode
+basic_neural_tests/neural_ready/faster_rcnn_nas_coco_2018_01_28
