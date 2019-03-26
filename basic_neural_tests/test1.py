@@ -1,5 +1,7 @@
-import sys
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
+#
 #   Recognition of handwritten numbers - TEST №1
 #   see more: http://yann.lecun.com/exdb/mnist/
 #   
@@ -7,12 +9,16 @@ import sys
 #       numpy
 #       TensorFlow
 #       Keras
+#
+
+import sys
+
+import tensorflow as tf  # machine learning
+from keras.models import Sequential  # linear stack of layers
+from keras.utils import np_utils  # different utils
 
 import numpy # different math; arrays; matrix; very productive
-import tensorflow as tf # machine learning
-from keras.models import Sequential # linear stack of layers
 from keras.layers import Dense # neuro: activation func etc; FEEDFORWARD NEURALNETWWORK
-from keras.utils import np_utils # different utils
 
 # stochastic optimization setting: current value for the data repeatability
 numpy.random.seed(23)

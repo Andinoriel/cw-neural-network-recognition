@@ -38,7 +38,6 @@ from object_detection.utils import ops
 from utils import label_map_util
 from utils import visualization_utils
 
-from matplotlib import pyplot as pl
 from PIL import Image
 
 check = True
