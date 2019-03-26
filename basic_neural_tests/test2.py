@@ -31,7 +31,7 @@ def main():
         # loading first image
         image_1, image_rec_1 = loadImg('image_tests\\image1.jpg')
         # loading second image
-        image_2, image_rec_2 = loadImg('image_tests\\image2.jpg')
+        image_2, image_rec_2 = loadImg('image_tests\\image3.jpg')
 
         #determinate first image data
         determinators1 = detector(image_1, 1)
