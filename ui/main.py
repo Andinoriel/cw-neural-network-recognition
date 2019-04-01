@@ -3,10 +3,10 @@
 
 from kivy.app import App
 
-def main():
+class MainApp(App):
     pass
 
 if __name__ == '__main__':
-    pass
+    MainApp().run()
 else:
     pass
