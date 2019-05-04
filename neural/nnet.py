@@ -14,7 +14,7 @@ from object_detection.utils import ops
 from utils import label_map_util
 from utils import visualization_utils
 
-from PIL import Image
+from PIL import Image 
 
 #region Main
 
@@ -27,6 +27,7 @@ class PersonComparison(object):
         self.__detector = None
 
         self.__comparisonPhoto = []
+        self.__comparisonPhotoWithOutline = []
     
     @property
     def comparisonPhoto(self):
@@ -51,8 +52,12 @@ class PersonComparison(object):
     def determinePhoto(self, image):
         determinator = self.__detector(image)
         for i_enum, j_enum in enumerate(determinator):
+            print("Detection {}: LeftSide: {} TopSide: {} RightSide: {} BottomSide: {}".format(i_enum, j_enum.left(), j_enum.top(), j_enum.right(), j_enum.bottom()))
             shape = self.__shape_predictor(image, j_enum)
         return self.__face_recognition.compute_face_descriptor(image, shape)
+
+    def calculateDistance(self, dist_1, dist_2):
+        return distance.euclidean(dist_1, dist_2)
 
 #endregion
 
@@ -91,12 +96,16 @@ class FindingObjects(object):
             self.__categories = label_map_util.convert_label_map_to_categories(self.__label_map, max_num_classes=100, use_display_name=True)
             self.__categories_dictionary = label_map_util.create_category_index(self.__categories)
 
-            with self.__model_graph.as_default():
+            with self.__model_graph.as_default(): # pylint debug error? "context manager 'generator' doesn't implement __enter__ and __exit__" is not a true 
                 self.__model_graph_def = tf.GraphDef()
                 with tf.gfile.GFile(mode, 'rb') as file:
                     serialized = file.read()
                     self.__model_graph_def.ParseFromString(serialized)
                     tf.import_graph_def(self.__model_graph_def, name='')
+
+            return True
+        
+        return False
     
     def loadImage(self, path):
         if os.path.exists(path) and os.path.isfile(path):
@@ -104,9 +113,15 @@ class FindingObjects(object):
             (image_width, image_height) = image.size
             return numpy.array(image.getdata()).reshape((image_height, image_width, 3)).astype(numpy.uint8)
 
-    def process(self, processed_image):
-        with self.__model_graph.as_default():
+    def tensorboardDebug(self):
+        with self.__model_graph.as_default(): # pylint debug error? "context manager 'generator' doesn't implement __enter__ and __exit__" is not a true
             with tf.Session() as current_session:
+                tf.summary.FileWriter('log_simple_graph', current_session.graph)
+
+    def process(self, processed_image):
+        with self.__model_graph.as_default(): # pylint debug error? "context manager 'generator' doesn't implement __enter__ and __exit__" is not a true
+            with tf.Session() as current_session:
+
                 ops = tf.get_default_graph().get_operations()
                 all_aviable_tensors_name = {output.name for op in ops for output in op.outputs}
                 tensorflow_dictionary = {}

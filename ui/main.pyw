@@ -6,9 +6,13 @@ import main
 
 sys.path.append('..\\')
 import neural.nnet as net    
+import numpy
 
 from PyQt5 import QtWidgets, QtGui
 
+#
+#   PersonComparison module not implemented
+#
 
 class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
     def __init__(self):
@@ -16,7 +20,7 @@ class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
         self.setupUi(self)
 
         self.__current_net = net.FindingObjects()
-        self.image = None
+        self.__image = None
 
         self.openFileDialog.clicked.connect(self.loadImage)
         self.findObject.clicked.connect(self.processImage)
@@ -25,12 +29,12 @@ class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
         directory = QtWidgets.QFileDialog.getOpenFileName(self)
         if not directory[0] == '':
 
-            self.__current_net.loadData(self.__current_net.finding_fast)
-            self.image = self.__current_net.loadImage(directory[0])
-
+            self.__current_net.loadData(self.__current_net.finding_normal)
+            self.__image = self.__current_net.loadImage(directory[0])
     
     def processImage(self):
-        (self.__current_net.process(self.image)).save('out.jpg')
+        if numpy.any(self.__image):
+            (self.__current_net.process(self.__image)).save('out.jpg')
 
 def main():
     application = QtWidgets.QApplication(sys.argv)
