@@ -15,6 +15,7 @@ class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
 
+        self.__current_net = net.FindingObjects()
         self.image = None
 
         self.openFileDialog.clicked.connect(self.loadImage)
@@ -23,12 +24,13 @@ class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
     def loadImage(self):
         directory = QtWidgets.QFileDialog.getOpenFileName(self)
         if not directory[0] == '':
-            net.findingLoadData(net.finding_fast)
-            self.image = net.findingLoadImage(directory[0])            
+
+            self.__current_net.loadData(self.__current_net.finding_fast)
+            self.image = self.__current_net.loadImage(directory[0])
+
     
     def processImage(self):
-        if not self.image == None:
-            (net.processImage(self.image)).save('out.jpg')
+        (self.__current_net.process(self.image)).save('out.jpg')
 
 def main():
     application = QtWidgets.QApplication(sys.argv)
