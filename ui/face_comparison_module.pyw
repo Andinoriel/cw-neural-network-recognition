@@ -61,12 +61,16 @@ class FaceComparison(QtWidgets.QMainWindow, face_comparison_module_.Ui_FaceCompa
         comparator.addPhoto(self.__path_first)
         comparator.addPhoto(self.__path_second)
 
-        determinator_1 = comparator.determinePhoto(comparator.comparisonPhoto[0])
-        determinator_2 = comparator.determinePhoto(comparator.comparisonPhoto[1])
-        result = comparator.calculateDistance(determinator_1, determinator_2)
+        determinator_1, truth_1 = comparator.determinePhoto(comparator.comparisonPhoto[0])
+        determinator_2, truth_2 = comparator.determinePhoto(comparator.comparisonPhoto[1])
 
-        if result<self.__descriptor_value:
-            QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: the same person is depicted.')
+        if truth_1 and truth_2:
+            result = comparator.calculateDistance(determinator_1, determinator_2)
+
+            if result<self.__descriptor_value:
+                QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: the same person is depicted.')
+            else:
+                QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: not the same person is depicted.')
+
         else:
-            QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: not the same person is depicted.')
-            
+               QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: no person found on one of the photos.')       

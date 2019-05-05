@@ -27,7 +27,6 @@ class PersonComparison(object):
         self.__detector = None
 
         self.__comparisonPhoto = []
-        self.__comparisonPhotoWithOutline = []
     
     @property
     def comparisonPhoto(self):
@@ -51,10 +50,13 @@ class PersonComparison(object):
     
     def determinePhoto(self, image):
         determinator = self.__detector(image)
+        if not determinator:
+            return [[0], False]
+        print(determinator)
         for i_enum, j_enum in enumerate(determinator):
             print("Detection {}: LeftSide: {} TopSide: {} RightSide: {} BottomSide: {}".format(i_enum, j_enum.left(), j_enum.top(), j_enum.right(), j_enum.bottom()))
             shape = self.__shape_predictor(image, j_enum)
-        return self.__face_recognition.compute_face_descriptor(image, shape)
+        return [self.__face_recognition.compute_face_descriptor(image, shape), True]
 
     def calculateDistance(self, dist_1, dist_2):
         return distance.euclidean(dist_1, dist_2)
