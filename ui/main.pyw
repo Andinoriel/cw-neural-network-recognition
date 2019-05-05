@@ -2,39 +2,36 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import main
+import main_
+
+import face_comparison_module
+import finding_objects_module
 
 sys.path.append('..\\')
 import neural.nnet as net    
-import numpy
 
 from PyQt5 import QtWidgets, QtGui
 
-#
-#   PersonComparison module not implemented
-#
-
-class MainApp(QtWidgets.QMainWindow, main.Ui_MainWindow):
+class MainApp(QtWidgets.QMainWindow, main_.Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
 
-        self.__current_net = net.FindingObjects()
-        self.__image = None
+        self.setWindowTitle('Main Menu')
 
-        self.openFileDialog.clicked.connect(self.loadImage)
-        self.findObject.clicked.connect(self.processImage)
+        self.face_module.clicked.connect(self.first_module)
+        self.object_module.clicked.connect(self.second_module)
 
-    def loadImage(self):
-        directory = QtWidgets.QFileDialog.getOpenFileName(self)
-        if not directory[0] == '':
+        self.face_comparison = face_comparison_module.FaceComparison()
+        self.object_objects = finding_objects_module.FindingObjects()
 
-            self.__current_net.loadData(self.__current_net.finding_normal)
-            self.__image = self.__current_net.loadImage(directory[0])
-    
-    def processImage(self):
-        if numpy.any(self.__image):
-            (self.__current_net.process(self.__image)).save('out.jpg')
+    def first_module(self):
+        self.face_comparison.show()
+        self.close()
+
+    def second_module(self):
+        self.object_objects.show()
+        self.close()
 
 def main():
     application = QtWidgets.QApplication(sys.argv)
