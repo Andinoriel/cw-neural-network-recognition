@@ -105,8 +105,7 @@ class FindingObjects(object):
                     self.__model_graph_def.ParseFromString(serialized)
                     tf.import_graph_def(self.__model_graph_def, name='')
 
-            return True
-        
+            return True        
         return False
     
     def loadImage(self, path):

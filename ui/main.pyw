@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+import os
 import main_
 
 import face_comparison_module
@@ -23,17 +24,18 @@ class MainApp(QtWidgets.QMainWindow, main_.Ui_MainWindow):
         self.object_module.clicked.connect(self.second_module)
 
         self.face_comparison = face_comparison_module.FaceComparison()
-        self.object_objects = finding_objects_module.FindingObjects()
+        self.finding_objects = finding_objects_module.FindingObjects()
 
     def first_module(self):
         self.face_comparison.show()
         self.close()
 
     def second_module(self):
-        self.object_objects.show()
+        self.finding_objects.show()
         self.close()
 
 def main():
+    os.system('cls' if os.name=='nt' else 'clear')
     application = QtWidgets.QApplication(sys.argv)
     window = MainApp()
     window.show()

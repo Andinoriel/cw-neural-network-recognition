@@ -14,7 +14,6 @@ class FaceComparison(QtWidgets.QMainWindow, face_comparison_module_.Ui_FaceCompa
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        os.system('cls' if os.name=='nt' else 'clear')
 
         self.setWindowTitle('Face Comparison')
 
@@ -55,6 +54,7 @@ class FaceComparison(QtWidgets.QMainWindow, face_comparison_module_.Ui_FaceCompa
                 self.compare_image.setEnabled(True)
 
     def compare(self):
+        os.system('cls' if os.name=='nt' else 'clear')
         comparator = net.PersonComparison()
         comparator.loadData()
 

@@ -23,13 +23,13 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Find Object</string>
   </property>
   <widget class="QPushButton" name="find_objects">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>490</y>
+     <x>20</x>
+     <y>540</y>
      <width>91</width>
      <height>41</height>
     </rect>
@@ -42,7 +42,7 @@ objects</string>
   <widget class="QPushButton" name="load_image">
    <property name="geometry">
     <rect>
-     <x>280</x>
+     <x>20</x>
      <y>490</y>
      <width>91</width>
      <height>41</height>
@@ -67,6 +67,67 @@ image</string>
    </property>
    <property name="text">
     <string/>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="mode_fast">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>490</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Fast Mode - Effectively,
+but not accurate results</string>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="mode_normal">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>540</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Normal Mode - Balance 
+between quality and speed</string>
+   </property>
+  </widget>
+  <widget class="QRadioButton" name="mode_slow">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>290</x>
+     <y>510</y>
+     <width>181</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Slow Mode - High accuracy, but 
+consumes a lot of resources</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="danger_mode">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>510</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Enable danger mode</string>
    </property>
   </widget>
  </widget>
