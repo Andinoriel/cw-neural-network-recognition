@@ -49,5 +49,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Credits
 
-* [andinoriel](https://github.com/davisking) - for providing pretrained models
-* [dlib](http://dlib.net/) - ML library
+* [davisking](https://github.com/davisking) - for providing pretrained models
+* [Dlib](http://dlib.net/) - ML library
+* [alesanfra](https://github.com/alesanfra/dlib-wheels) - for binary Dlib distribution
+
