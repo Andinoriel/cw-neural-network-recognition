@@ -29,12 +29,10 @@ jobs:
 
     strategy:
       matrix:
-        os: [ macos-latest, windows-latest, ubuntu-latest ]
+        os: [ macos-latest, ubuntu-latest ]
         include:
           - os: macos-latest
             path: ~/Library/Caches/pip
-          - os: windows-latest
-            path: ~\AppData\Local\pip\Cache
           - os: ubuntu-latest
             path: ~/.cache/pip
 
