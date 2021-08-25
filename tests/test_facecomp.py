@@ -1,5 +1,5 @@
 import src.cw_nnrec.facecomp as facecomp
-import os
+
 
 class TestFacecomp():
     def test_compare_equal(self):
@@ -19,4 +19,3 @@ class TestFacecomp():
 
         assert fc.add_faces(face1, face2) == True
         assert fc.compare() == False
-

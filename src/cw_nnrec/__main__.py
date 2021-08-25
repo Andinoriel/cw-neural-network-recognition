@@ -9,7 +9,7 @@ def main():
     parser.add_argument(
         '-f', '--faces', help='compare two photo with faces', nargs='+')
     parser.add_argument(
-        '-t', '--threshold', help='set threshold value for comparison (0..1)',
+        '-t', '--threshold', help='set threshold value for comparison (0..1); lower value - better accuracy',
         nargs='?', type=float, const=0.6)
 
     args = parser.parse_args()

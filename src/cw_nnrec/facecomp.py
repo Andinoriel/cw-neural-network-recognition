@@ -52,4 +52,3 @@ class Facecomp(object):
         return (True if (is_valid1 and is_valid2 and
                          distance.euclidean(delta1, delta2) < self.__threshold)
                 else False)
-
