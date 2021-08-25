@@ -1,1 +1,1 @@
-# cw-neural-network-recognition
+# cw-nnrec
