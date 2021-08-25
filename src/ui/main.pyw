@@ -9,7 +9,7 @@ import face_comparison_module
 import finding_objects_module
 
 sys.path.append('..\\')
-import neural.nnet as net    
+import neural.nnet as net
 
 from PyQt5 import QtWidgets, QtGui
 

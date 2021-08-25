@@ -96,7 +96,7 @@ but not accurate results</string>
     </rect>
    </property>
    <property name="text">
-    <string>Normal Mode - Balance 
+    <string>Normal Mode - Balance
 between quality and speed</string>
    </property>
   </widget>
@@ -113,7 +113,7 @@ between quality and speed</string>
     </rect>
    </property>
    <property name="text">
-    <string>Slow Mode - High accuracy, but 
+    <string>Slow Mode - High accuracy, but
 consumes a lot of resources</string>
    </property>
   </widget>

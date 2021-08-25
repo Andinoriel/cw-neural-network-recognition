@@ -24,7 +24,7 @@ class FindingObjects(QtWidgets.QMainWindow, finding_objects_module_.Ui_FindObjec
         self.find_objects.setEnabled(False)
         self.mode_slow.setEnabled(False)
         self.mode_slow.hide()
-    
+
     def load_image_(self):
         directory = QtWidgets.QFileDialog.getOpenFileName(self)
         if not directory[0] == '':
@@ -47,7 +47,7 @@ class FindingObjects(QtWidgets.QMainWindow, finding_objects_module_.Ui_FindObjec
             mode = findler.finding_normal
         elif self.mode_fast.isChecked():
             mode = findler.finding_fast
-        
+
         findler.loadData(mode)
         findler.tensorboardDebug()
 

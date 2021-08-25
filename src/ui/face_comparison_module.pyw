@@ -21,7 +21,7 @@ class FaceComparison(QtWidgets.QMainWindow, face_comparison_module_.Ui_FaceCompa
         self.__path_first = self.__path_second = None
 
         self.load_image_1.clicked.connect(self.load_first_image)
-        self.load_image_2.clicked.connect(self.load_second_image)      
+        self.load_image_2.clicked.connect(self.load_second_image)
         self.compare_image.clicked.connect(self.compare)
 
         self.compare_image.setEnabled(False)
@@ -73,4 +73,4 @@ class FaceComparison(QtWidgets.QMainWindow, face_comparison_module_.Ui_FaceCompa
                 QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: not the same person is depicted.')
 
         else:
-               QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: no person found on one of the photos.')       
+               QtWidgets.QMessageBox.about(self, 'Result', 'Face Recognition: no person found on one of the photos.')

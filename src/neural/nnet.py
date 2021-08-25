@@ -14,7 +14,7 @@ from object_detection.utils import ops
 from utils import label_map_util
 from utils import visualization_utils
 
-from PIL import Image 
+from PIL import Image
 
 #region Main
 
@@ -27,7 +27,7 @@ class PersonComparison(object):
         self.__detector = None
 
         self.__comparisonPhoto = []
-    
+
     @property
     def comparisonPhoto(self):
         return self.__comparisonPhoto
@@ -40,14 +40,14 @@ class PersonComparison(object):
                 self.__detector = dlib.get_frontal_face_detector()
                 return True
         return False
-    
+
     def addPhoto(self, path):
         if os.path.exists(path) and os.path.isfile(path):
             image = io.imread(path)
             self.__comparisonPhoto.append(image)
             return True
         return False
-    
+
     def determinePhoto(self, image):
         determinator = self.__detector(image)
         if not determinator:
@@ -84,7 +84,7 @@ class FindingObjects(object):
         return self.__finding_fast
     @property
     def finding_normal(self):
-        return self.__finding_normal   
+        return self.__finding_normal
     @property
     def finding_slow(self):
         return self.__finding_slow
@@ -94,20 +94,20 @@ class FindingObjects(object):
 
         if os.path.exists('..\\neural_ready\\mscoco_label_map.pbtxt') and os.path.isfile('..\\neural_ready\\mscoco_label_map.pbtxt'):
             self.__label_map = label_map_util.load_labelmap('..\\neural_ready\\mscoco_label_map.pbtxt')
-            
+
             self.__categories = label_map_util.convert_label_map_to_categories(self.__label_map, max_num_classes=100, use_display_name=True)
             self.__categories_dictionary = label_map_util.create_category_index(self.__categories)
 
-            with self.__model_graph.as_default(): # pylint debug error? "context manager 'generator' doesn't implement __enter__ and __exit__" is not a true 
+            with self.__model_graph.as_default(): # pylint debug error? "context manager 'generator' doesn't implement __enter__ and __exit__" is not a true
                 self.__model_graph_def = tf.GraphDef()
                 with tf.gfile.GFile(mode, 'rb') as file:
                     serialized = file.read()
                     self.__model_graph_def.ParseFromString(serialized)
                     tf.import_graph_def(self.__model_graph_def, name='')
 
-            return True        
+            return True
         return False
-    
+
     def loadImage(self, path):
         if os.path.exists(path) and os.path.isfile(path):
             image = Image.open(path)
@@ -134,7 +134,7 @@ class FindingObjects(object):
                     current_tensor_name = key + ':0'
                     if current_tensor_name in all_aviable_tensors_name:
                         tensorflow_dictionary[key] = tf.get_default_graph().get_tensor_by_name(current_tensor_name)
-                
+
                 if 'detections_masks' in tensorflow_dictionary:
                     detection_boxes = tf.squeeze(tensorflow_dictionary['detection_boxes'], [0])
                     detection_masks = tf.squeeze(tensorflow_dictionary['detection_masks'], [0])
@@ -143,14 +143,14 @@ class FindingObjects(object):
                     detection_boxes = tf.slice(detection_boxes, [0, 0], [num_detections, -1])
                     detection_masks = tf.slice(detection_masks, [0, 0, 0], [num_detections, -1, -1])
 
-                    detection_masks_reframed = ops.reframe_box_masks_to_image_masks(detection_masks, detection_boxes, 
+                    detection_masks_reframed = ops.reframe_box_masks_to_image_masks(detection_masks, detection_boxes,
                     processed_image.shape[0], processed_image.shape[1])
 
-                    detection_masks_reframed = ops.reframe_box_masks_to_image_masks(detection_masks, detection_boxes, 
+                    detection_masks_reframed = ops.reframe_box_masks_to_image_masks(detection_masks, detection_boxes,
                     processed_image.shape[0], processed_image.shape[1])
                     detection_masks_reframed = tf.cast(tf.greater(detection_masks_reframed, 0.5), tf.uint8)
                     tensorflow_dictionary['detection_masks'] = tf.expand_dims(detection_masks_reframed, 0)
-                
+
                 image_current_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
 
                 tensorflow_output_dictionary = current_session.run(tensorflow_dictionary, feed_dict=
@@ -162,7 +162,7 @@ class FindingObjects(object):
                 tensorflow_output_dictionary['detection_scores'] = tensorflow_output_dictionary['detection_scores'][0]
                 if 'detections_masks' in tensorflow_output_dictionary:
                     tensorflow_output_dictionary['detections_masks'] = tensorflow_output_dictionary['detections_masks'][0]
-        
+
         visualization_utils.visualize_boxes_and_labels_on_image_array(
             processed_image,
             tensorflow_output_dictionary['detection_boxes'],
@@ -175,7 +175,7 @@ class FindingObjects(object):
         )
 
         return Image.fromarray(processed_image)
-        
+
 #endregion
 
 #endregion
