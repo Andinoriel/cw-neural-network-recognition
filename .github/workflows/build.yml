@@ -4,8 +4,24 @@ on:
   workflow_dispatch:
   push:
     branches: [ main ]
+    paths:
+      - 'configure.py'
+      - 'MANIFEST.in'
+      - 'pyproject.toml'
+      - 'setup.cfg'
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/build.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'configure.py'
+      - 'MANIFEST.in'
+      - 'pyproject.toml'
+      - 'setup.cfg'
+      - 'src/**'
+      - 'tests/**'
+      - '.github/workflows/build.yml'
 
 jobs:
   build:
